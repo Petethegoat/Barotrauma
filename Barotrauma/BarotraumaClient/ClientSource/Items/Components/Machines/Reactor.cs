@@ -514,8 +514,8 @@ namespace Barotrauma.Items.Components
             float maxLoad = loadGraph.Max();
             float xOffset = graphTimer / updateGraphInterval;
             Rectangle graphRect = new Rectangle(container.Rect.X, container.Rect.Y, container.Rect.Width, container.Rect.Height - (int)(5 * GUI.yScale));
-            DrawGraph(outputGraph, spriteBatch, graphRect, Math.Max(10000.0f, maxLoad), xOffset, outputColor);
-            DrawGraph(loadGraph, spriteBatch, graphRect, Math.Max(10000.0f, maxLoad), xOffset, loadColor);
+            DrawGraph(outputGraph, spriteBatch, graphRect, Math.Max(MaxPowerOutput * 1.5f, maxLoad + 50f), xOffset, outputColor);
+            DrawGraph(loadGraph, spriteBatch, graphRect, Math.Max(MaxPowerOutput * 1.5f, maxLoad + 50f), xOffset, loadColor);
         }
 
 
