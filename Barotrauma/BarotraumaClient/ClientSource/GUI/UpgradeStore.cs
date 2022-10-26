@@ -768,7 +768,7 @@ namespace Barotrauma
                 i.Prefab.SwappableItem != null &&
                 !i.HiddenInGame && i.AllowSwapping &&
                 (i.Prefab.SwappableItem.CanBeBought || ItemPrefab.Prefabs.Any(ip => ip.SwappableItem?.ReplacementOnUninstall == i.Prefab.Identifier)) &&
-                Submarine.MainSub.IsEntityFoundOnThisSub(i, true) && category.ItemTags.Any(t => i.HasTag(t)));
+                Submarine.MainSub.IsEntityFoundOnThisSub(i, true) && category.SwappableTags.Any(t => i.HasTag(t)));
         }
 
         private static List<Item> GetSubItems() => Submarine.MainSub?.GetItems(true) ?? new List<Item>();
@@ -877,7 +877,7 @@ namespace Barotrauma
         {
             parent.Content.ClearChildren();
             currentUpgradeCategory = category;
-            var entitiesOnSub = submarine.GetItems(true).Where(i => submarine.IsEntityFoundOnThisSub(i, true) && !i.HiddenInGame && i.AllowSwapping && i.Prefab.SwappableItem != null && i.Prefab.SwappableItem.CanBeBought && category.ItemTags.Any(t => i.HasTag(t))).ToList();
+            var entitiesOnSub = submarine.GetItems(true).Where(i => submarine.IsEntityFoundOnThisSub(i, true) && !i.HiddenInGame && i.AllowSwapping && i.Prefab.SwappableItem != null && i.Prefab.SwappableItem.CanBeBought && category.SwappableTags.Any(t => i.HasTag(t))).ToList();
 
             foreach (Item item in entitiesOnSub)
             {

@@ -104,19 +104,23 @@ namespace Barotrauma
         public static readonly PrefabCollection<UpgradeCategory> Categories = new PrefabCollection<UpgradeCategory>();
 
         private readonly ImmutableHashSet<Identifier> selfItemTags;
+        private readonly ImmutableHashSet<Identifier> selfSwappableTags;
         private readonly HashSet<Identifier> prefabsThatAllowUpgrades = new HashSet<Identifier>();
         public readonly bool IsWallUpgrade;
         public readonly LocalizedString Name;
 
         public readonly IEnumerable<Identifier> ItemTags;
+        public readonly IEnumerable<Identifier> SwappableTags;
 
         public UpgradeCategory(ContentXElement element, UpgradeModulesFile file) : base(element, file)
         {
             selfItemTags = element.GetAttributeIdentifierArray("items", Array.Empty<Identifier>())?.ToImmutableHashSet() ?? ImmutableHashSet<Identifier>.Empty;
+            selfSwappableTags = element.GetAttributeIdentifierArray("swappables", Array.Empty<Identifier>())?.ToImmutableHashSet() ?? ImmutableHashSet<Identifier>.Empty;
             Name = element.GetAttributeString("name", string.Empty)!;
             IsWallUpgrade = element.GetAttributeBool("wallupgrade", false);
 
             ItemTags = selfItemTags.CollectionConcat(prefabsThatAllowUpgrades);
+            SwappableTags = selfSwappableTags.CollectionConcat(prefabsThatAllowUpgrades);
 
             Identifier nameIdentifier = element.GetAttributeIdentifier("nameidentifier", Identifier.Empty);
 
